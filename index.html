@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html>
   <head>
@@ -8,11 +7,11 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 
     <!-- Use title if it's in the page YAML frontmatter -->
-    <title>API Reference</title>
+    <title>Rescale RESTful api</title>
 
-    <link href="stylesheets/screen.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="javascripts/all.js" type="text/javascript"></script>
 
     <script>
@@ -39,21 +38,7 @@
           toc.setOption("showEffectSpeed", 180);
         },50);
         setupLanguages([
-          
-            
-              
-                'shell',
-              
-            
-              
-                'ruby',
-              
-            
-              
-                'python',
-              
-            
-          
+                'json',
         ]);
       });
     </script>
@@ -64,166 +49,136 @@
       <img src="images/logo.png" />
       <div id="toc">
       </div>
-      
       <ul class="toc-footer">
-        
           <li><a href='#'>Sign Up for a Developer Key</a></li>
-        
           <li><a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
-        
       </ul>
-      
     </div>
     <div class="page-wrapper">
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>All the API calls need to include the Authorization Token in the HTTP header. 
+e.g <code class="prettyprint">shell -H &#39;Authorization: Token &lt;API Key&gt;&#39;</code></p>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<h1 id="analyses">Analyses</h1>
 
-<p>This example API documentation page was created with <a href="http://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
-
-<h1 id="authentication">Authentication</h1>
+<p><code class="prettyprint">GET /api/analyses/</code></p>
 
 <blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</pre><pre class="highlight python"><span class="kn">import</span> <span class="s">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">Kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</pre><pre class="highlight shell"><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</pre>
-<blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
-
-<p><aside class="notice">
-You must replace <code class="prettyprint">meowmeowmeow</code> with your personal API key.
-</aside></p>
-
-<h1 id="kittens">Kittens</h1>
-
-<h2 id="get-all-kittens">Get All Kittens</h2>
-<pre class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</pre><pre class="highlight python"><span class="kn">import</span> <span class="s">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">Kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</pre><pre class="highlight shell">curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></pre>
-<p>This endpoint retrieves all kittens.</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://example.com/kittens</code></p>
-
-<h3 id="query-parameters">Query Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody></table>
-
-<p><aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside></p>
-
-<h2 id="get-a-specific-kitten">Get a Specific Kitten</h2>
-<pre class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre><pre class="highlight python"><span class="kn">import</span> <span class="s">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">Kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre><pre class="highlight shell">curl <span class="s2">"http://example.com/api/kittens/3"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p><strong>Response</strong><br>
+<code class="prettyprint">HTTP 200 OK</code><br>
+<code class="prettyprint">Vary: Accept</code><br>
+<code class="prettyprint">Content-Type: application/json</code><br>
+<code class="prettyprint">Allow: GET, HEAD, OPTIONS</code>  </p>
 </blockquote>
 <pre class="highlight json"><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">46</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"previous"</span><span class="p">:</span><span class="w"> </span><span class="err">null</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+         </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adina"</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;p&gt;&lt;b&gt;A&lt;/b&gt;utomatic &lt;b&gt;D&lt;/b&gt;ynamic &lt;b&gt;I&lt;/b&gt;ncremental &lt;b&gt;N&lt;/b&gt;onlinear &lt;b&gt;A&lt;/b&gt;nalysis (&lt;b&gt;ADINA&lt;/b&gt;) is a finite element analysis (FEA) suite of tools providing a comprehensive FEA solution for modeling structures, fluids, heat transfer, electromagnetics, and multiphysics.&lt;/p&gt;"</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"industries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d12eutiwfmky5n.cloudfront.net/thumbnails/tools-auto_1.png"</span><span class="p">,</span><span class="w"> 
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Automotive"</span><span class="w">
+        </span><span class="p">},</span><span class="w"> 
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d12eutiwfmky5n.cloudfront.net/thumbnails/tools-aero_1.png"</span><span class="p">,</span><span class="w"> 
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aerospace"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w"> 
+      </span><span class="s2">"licenseSettings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"helpText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The address of the FlexNet license server to use. ([port]@hostname)"</span><span class="p">,</span><span class="w"> 
+          </span><span class="s2">"isServer"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> 
+          </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"License"</span><span class="p">,</span><span class="w"> 
+          </span><span class="s2">"licenseType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sentinel"</span><span class="p">,</span><span class="w"> 
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LSHOST"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w"> 
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ADINA"</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"pricing"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"resources"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"> 
+      </span><span class="s2">"thumbnail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d12eutiwfmky5n.cloudfront.net/thumbnails/adina.png"</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"vendorName"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"versions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"allowedCoreTypes"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"> 
+          </span><span class="s2">"eula"</span><span class="p">:</span><span class="w"> </span><span class="err">null</span><span class="p">,</span><span class="w"> 
+          </span><span class="s2">"mpiCommand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"run-adina -n &lt;mpi-ranks&gt; -t &lt;smp-ranks&gt; -f &lt;input-filename&gt; -p &lt;input-filename-2&gt;"</span><span class="p">,</span><span class="w"> 
+          </span><span class="s2">"smpCommand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"run-adina -t &lt;smp-ranks&gt; -f &lt;input-filename&gt; -p &lt;input-filename-2&gt;"</span><span class="p">,</span><span class="w"> 
+          </span><span class="s2">"stdCommand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"run-adina -f &lt;input-filename&gt; -p &lt;input-filename-2&gt;"</span><span class="p">,</span><span class="w"> 
+          </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9.0.0"</span><span class="p">,</span><span class="w"> 
+          </span><span class="s2">"versionCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9.0.0-openmpi"</span><span class="w">
+        </span><span class="p">},</span><span class="w"> 
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"allowedCoreTypes"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"> 
+          </span><span class="s2">"eula"</span><span class="p">:</span><span class="w"> </span><span class="err">null</span><span class="p">,</span><span class="w"> 
+          </span><span class="s2">"mpiCommand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"run-adina -n &lt;mpi-ranks&gt; -t &lt;smp-ranks&gt; -f &lt;input-filename&gt; -p &lt;input-filename-2&gt;"</span><span class="p">,</span><span class="w"> 
+          </span><span class="s2">"smpCommand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"run-adina -t &lt;smp-ranks&gt; -p1 &lt;input-filename&gt; -p &lt;input-filename-2&gt;"</span><span class="p">,</span><span class="w"> 
+          </span><span class="s2">"stdCommand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"run-adina -f &lt;input-filename&gt; -p &lt;input-filename-2&gt;"</span><span class="p">,</span><span class="w"> 
+          </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9.0.1"</span><span class="p">,</span><span class="w"> 
+          </span><span class="s2">"versionCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9.0.1-openmpi"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w"> 
+    </span><span class="err">...</span><span class="w">
+    </span><span class="p">],</span><span class="w"> 
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="err">null</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></pre>
-<p>This endpoint retrieves a specific kitten.</p>
 
-<p><aside class="warning">If you&rsquo;re not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside></p>
+<h1 id="credentials">Credentials</h1>
 
-<h3 id="http-request">HTTP Request</h3>
+<h2 id="credentials-for-upload">Credentials for upload</h2>
 
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
+<p><code class="prettyprint">POST /api/credentials/</code></p>
 
-<h3 id="url-parameters">URL Parameters</h3>
+<blockquote>
+<p><strong>Response</strong><br>
+HTTP 201 CREATED<br>
+Vary: Accept<br>
+Content-Type: application/json<br>
+Allow: POST, OPTIONS  </p>
+</blockquote>
+<pre class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"secretKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;AWS Secret Key&gt;"</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"accessKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;AWS Access Key&gt;"</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"storageDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user/user_XXXXX"</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-01-30T03:00:44Z"</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"sessionToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AQoDYXdzEMv//////////wEa0ALhKSZusmhtdW+1dYPIid11chpkA0BpX7W0cAfP9ldAI4uP51/VY9/NxmkIMq9drz9QbtX8/mh7PRxOdTxaYCc1/DddGD3rsRagEwLBFNL5I012zN/sPos7B/pDiOPtNJGzwfg94klXgSZYSGSE4bsLi1pVDm4ay/+eiEQWQluUwCXG0ZDQneKXRg/mxVmSBPwrrqu+c2xkXKZYZ7IXKHv0gLf/g3edNVxKQaoDV2Jo24Ate/gNEz8WSE2A1wp85fAxU8IdTmCxhN4zcem6G8gwmzlyTE5+68gDbFnf7sDnQ9RCi85QDxBGUgZyUGPeE39l2nj9J5qJXvW68YY4ngbqA00SJfEXuBIWOUHoWlOMO/lnA3PDjZXp2ZMVAwpvUshF2YEDew55AknBAVAW04FtfKU/NKtYSVbzcdA3A00YtHLpB436a6bZ8K2HIccS4T4gzOSmlwU="</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre>
 
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the cat to retrieve</td>
-</tr>
-</tbody></table>
+<h2 id="credentials-for-particular-path(s)">Credentials for particular path(s)</h2>
 
-<h1 id="errors">Errors</h1>
+<p><code class="prettyprint">POST api/credentials/</code></p>
+
+<blockquote>
+<p><strong>Data</strong><br>
+<code class="prettyprint">{&quot;paths&quot;: [{&quot;path&quot;: &quot;user/user_BNTMk/SGE/run.sh&quot;}]}</code><br>
+<strong>Headers</strong><br>
+<code class="prettyprint">-H &#39;Content-Type: application/json&#39; -H &#39;Authorization: Token [API Key]&#39;</code><br>
+<strong>Response</strong><br>
+HTTP 201 CREATED<br>
+Vary: Accept<br>
+Content-Type: application/json<br>
+Allow: POST, OPTIONS  </p>
+</blockquote>
+<pre class="highlight json"><span class="p">{</span><span class="w">  
+    </span><span class="s2">"secretKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;AWS Secret Key&gt;"</span><span class="p">,</span><span class="w">  
+    </span><span class="s2">"accessKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;AWS Access Key&gt;"</span><span class="p">,</span><span class="w">  
+    </span><span class="s2">"storageDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user/user_XXXXX"</span><span class="p">,</span><span class="w">  
+    </span><span class="s2">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-01-30T03:19:05Z"</span><span class="p">,</span><span class="w">  
+    </span><span class="s2">"sessionToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AQoDYXdzEMv//////////wEa0AI9+fos3N+2Qnyj5jpCqnUu4YQTc9hPoAm4YwMVFzRdSEe0DY7L1xnfDsybpOd3sP20r69jo8T3MCyfofDUGCaIdgRAP6/AQ9J9Z7h8dq0f0fxhIBrRM2neCrpZiFBrbQxtVLWhwGpFF4oyM6AklNy3FemQxs10DSXXZKeMcdS0Ef7BwTFha3d5e4aXbX0kOH4nEk214jGPjUtGiKr48/iSxA4Dk9mm5XMKPUehDKn5aYjiz0y5kVhK1l1Ow3UbPmefe7IhkQtHymZKVJ6wshnAfSAy4KH7NvQyDFDoiNfuOTbuydH6j8Ufs5cSzLJueiKmkvtDac0aVF6/1pLQFpSGRvkA7T1J5qOgTJ/I32iHq2mU4dO2rArb9mbnYxcR58Ur2TNwIibU4arN/3n9/K1DmIDAR0fY1wD6ocfZcNrAhHO+S/lxaCfBHVPH6JGas1Igme2mlwU="</span><span class="w">  
+</span><span class="p">}</span><span class="w">  
+</span></pre>
+
+            <h1 id="errors">Errors</h1>
+
+<p><aside class="notice">This error section is stored in a separate file in <code class="prettyprint">includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the <code class="prettyprint">includes</code> folder and add them to the top of your <code class="prettyprint">index.md</code>&rsquo;s frontmatter. Files are included in the order listed.</aside></p>
 
 <p>The Kittn API uses the following error codes:</p>
 
@@ -282,21 +237,7 @@ Remember — a happy kitten is an authenticated kitten!
       </div>
       <div class="dark-box">
         <div id="lang-selector">
-          
-            
-              
-                <a href="#" data-language-name="shell">shell</a>
-              
-            
-              
-                <a href="#" data-language-name="ruby">ruby</a>
-              
-            
-              
-                <a href="#" data-language-name="python">python</a>
-              
-            
-          
+                <a href="#" data-language-name="json">json</a>
         </div>
       </div>
     </div>
